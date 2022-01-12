@@ -1,0 +1,38 @@
+{
+  "gid": 346110,
+  "title": "ARK: Survival Evolved",
+  "description": "Stranded on the shores of a mysterious island, you must learn to survive. Use your cunning to kill or tame the primeval creatures roaming the land, and encounter other players to survive, dominate... and escape!",
+  "price": 1393.00,
+  "releaseDate": "2017-08-29T15:08:00Z",
+  "discount": 30,
+  "publisher": {
+    "pubId": 331,
+    "name": "Claytechworks"
+  },
+  "developer": {
+    "devId": 777,
+    "name": "Claytechworks"
+  },
+  "tags": [
+    {
+      "tagId": 399,
+      "tagName": "Open World Survival Craft"
+    },
+    {
+      "tagId": 16,
+      "tagName": "Survival"
+    },
+    {
+      "tagId": 3,
+      "tagName": "Multiplayer"
+    },
+    {
+      "tagId": 71,
+      "tagName": "Building"
+    },
+    {
+      "tagId": 13,
+      "tagName": "Adventure"
+    }
+  ]
+}

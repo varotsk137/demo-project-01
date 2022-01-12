@@ -1,0 +1,34 @@
+{
+  "gid": 730,
+  "title": "Counter-Strike: Global Offensive",
+  "description": "Counter-Strike: Global Offensive (CS: GO) expands upon the team-based action gameplay that it pioneered when it was launched 19 years ago. CS: GO features new maps, characters, weapons, and game modes, and delivers updated versions of the classic CS content (de_dust2, etc.).",
+  "price": 315.00,
+  "releaseDate": "2012-08-21T17:00:00+00:00",
+  "discount": 0,
+  "publisher": {
+    "pubId": 1,
+    "name": "Valve"
+  },
+  "developer": {
+    "devId": 1,
+    "name": "Valve"
+  },
+  "tags": [
+    {
+      "tagId": 5,
+      "tagName": "FPS"
+    },
+    {
+      "tagId": 51,
+      "tagName": "Shooter"
+    },
+    {
+      "tagId": 3,
+      "tagName": "Multiplayer"
+    },
+    {
+      "tagId": 31,
+      "tagName": "Competitive"
+    }
+  ]
+}

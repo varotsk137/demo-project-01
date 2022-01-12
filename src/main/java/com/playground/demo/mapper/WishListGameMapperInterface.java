@@ -23,28 +23,16 @@ public interface WishListGameMapperInterface {
     WishListGame gameToWishlistGame(Game game);
 
     @AfterMapping
-    default void after(@MappingTarget WishListGame wishListGame, Game game){
+    default void after(@MappingTarget WishListGame.WishListGameBuilder builder, Game game) {
 
         if (game.getDiscount() > 0) {
-        wishListGame.setCurrentPrice(calcCurrentPrice(game.getPrice(), game.getDiscount()));
+            builder.currentPrice(calcCurrentPrice(game.getPrice(), game.getDiscount()));
         }
 
     }
 
-    private BigDecimal calcCurrentPrice(BigDecimal initPrice, Integer discount){
+    private BigDecimal calcCurrentPrice(BigDecimal initPrice, Integer discount) {
         return initPrice.multiply((BigDecimal.valueOf(100).subtract(BigDecimal.valueOf(discount))).divide(BigDecimal.valueOf(100)));
     }
-
-//    @Mapping(target = "gameTitle", source = "title", defaultValue = "No Title")
-//    @Mapping(target = "currentPrice", source = "price", qualifiedByName = "discount")
-//    @Mapping(target = "wishlistTime", expression = "java(java.time.ZonedDateTime.now())")
-//    @Mapping(target = "tagList", source = "tags")
-//    WishListGame GameToWishlistGameTryDiscount(Game game);
-//
-//    @Named(value = "discount")
-//    public default BigDecimal discountProductPrice(BigDecimal price){
-//        BigDecimal discount = BigDecimal.valueOf(11.11);
-//        return price.multiply((BigDecimal.valueOf(100).subtract(discount)).divide(BigDecimal.valueOf(100)));
-//    }
 
 }

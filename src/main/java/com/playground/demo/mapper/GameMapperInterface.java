@@ -44,7 +44,4 @@ public interface GameMapperInterface {
     @Mapping(target = ".", source = "developer")
     Developer gameToDeveloper(Game game);
 
-//    @Mapping(target = ".", source = "tags")
-//    List<Tag> gameToTagList(Game game);
-
 }
