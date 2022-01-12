@@ -9,6 +9,7 @@ import com.playground.demo.model.entity.Developer;
 import com.playground.demo.model.entity.Game;
 import com.playground.demo.model.entity.Publisher;
 import com.playground.demo.model.entity.Tag;
+import com.playground.demo.util.ReadInputUtil;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,12 +21,12 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GameMapperInterfaceTest {
+class GameMapperInterfaceTest extends ReadInputUtil {
 
     @InjectMocks
     private GameMapperInterfaceTest gameMapperInterfaceTest;
 
-    private ObjectMapper objectMapper;
+
     private GameDto gameDto;
     private Developer developer;
     private Publisher publisher;
@@ -34,15 +35,13 @@ class GameMapperInterfaceTest {
 
     @BeforeEach
     public void setup() throws IOException {
-        objectMapper = JsonMapper.builder()
-                .addModule(new JavaTimeModule())
-                .build();
 
-        this.gameDto = objectMapper.readValue(new File("src/test/resources/json/gameDto.json"), GameDto.class);
-        this.developer = objectMapper.readValue(new File("src/test/resources/json/developer.json"), Developer.class);
-        this.publisher = objectMapper.readValue(new File("src/test/resources/json/publisher.json"), Publisher.class);
-        this.tagList = objectMapper.readValue(new File("src/test/resources/json/tagList.json"), new TypeReference<List<Tag>>() {});
-        this.game = objectMapper.readValue(new File("src/test/resources/json/gameTest.json"), Game.class);
+        this.gameDto = super.loadClassFromJson(GameDto.class, "/json/gameDto.json");
+        this.developer = super.loadClassFromJson(Developer.class, "/json/developer.json");
+        this.publisher = super.loadClassFromJson(Publisher.class, "/json/publisher.json");
+        this.tagList = super.loadClassListFromJson(new TypeReference<List<Tag>>() {}, "/json/tagList.json");
+        this.game = super.loadClassFromJson(Game.class, "/json/gameTest.json");
+
     }
 
     @Test
