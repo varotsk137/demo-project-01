@@ -1,16 +1,18 @@
 package com.playground.demo.controller;
 
+import com.playground.demo.model.GameDto;
 import com.playground.demo.model.WishListGame;
-import com.playground.demo.model.Developer;
-import com.playground.demo.model.Game;
-import com.playground.demo.model.Publisher;
-import com.playground.demo.model.Tag;
+import com.playground.demo.model.entity.Developer;
+import com.playground.demo.model.entity.Game;
+import com.playground.demo.model.entity.Publisher;
+import com.playground.demo.model.entity.Tag;
 import com.playground.demo.service.GameService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -28,12 +30,25 @@ public class GameRestController {
         return gameService.wishListGameMapping(game);
     }
 
-    @PostMapping(value = "/game2wldc")
-    public WishListGame wishListGameMappingDiscount(@Validated @RequestBody Game game){
-        return gameService.wishListGameMappingDiscount(game);
+    @PostMapping(value = "/gameDto2game")
+    public Game addGameTesting(){
+        return gameService.addGameTesting();
     }
 
-    @PostMapping(value = "/")
+    @PostMapping(value = "/game2dev")
+    public Developer gameToDev(@Validated @RequestBody Game game ){
+        return gameService.gameToDeveloper(game);
+    }
+
+    @PostMapping(value = "/game2gameDto")
+    public GameDto gameToGameDto(@Validated @RequestBody Game game ){
+        return gameService.gameToGameDto(game);
+    }
+
+    @PostMapping(value = "/game2pub")
+    public Publisher gameToPublisher(@Validated @RequestBody Game game ){
+        return gameService.gameToPublisher(game);
+    }
 
     @GetMapping(value = "/demo")
     public Game getDemoGame(){
@@ -57,7 +72,7 @@ public class GameRestController {
                 .gid(1)
                 .title("Apex Legend")
                 .description("award-winning free-to-play Hero Shooter")
-                .price(0.00)
+                .price(BigDecimal.valueOf(0))
                 .developer(developer)
                 .publisher(publisher)
                 .releaseDate(ZonedDateTime.of(2020, 11, 5, 0, 0, 0, 0, ZoneId.of("Asia/Bangkok")))

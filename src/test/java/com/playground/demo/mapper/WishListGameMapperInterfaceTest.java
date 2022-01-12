@@ -1,13 +1,14 @@
 package com.playground.demo.mapper;
 
 import com.playground.demo.model.WishListGame;
-import com.playground.demo.model.Developer;
-import com.playground.demo.model.Game;
-import com.playground.demo.model.Publisher;
-import com.playground.demo.model.Tag;
+import com.playground.demo.model.entity.Developer;
+import com.playground.demo.model.entity.Game;
+import com.playground.demo.model.entity.Publisher;
+import com.playground.demo.model.entity.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 
+import java.math.BigDecimal;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -41,14 +42,15 @@ class WishListGameMapperInterfaceTest {
                 .gid(1)
                 .title("Apex Legend")
                 .description("award-winning free-to-play Hero Shooter")
-                .price(0.00)
+                .price(BigDecimal.valueOf(0))
                 .developer(developer)
                 .publisher(publisher)
                 .releaseDate(ZonedDateTime.of(2020, 11, 5, 0, 0, 0, 0, ZoneId.of("Asia/Bangkok")))
                 .tags(tagList)
+                .discount(0)
                 .build();
 
-        WishListGame wlg = WishListGameMapperInterface.INSTANCE.GameToWishlistGame( game );
+        WishListGame wlg = wishListGameMapperInterface.INSTANCE.gameToWishlistGame( game );
 
         assertEquals(game.getTitle(), wlg.getGameTitle());
         assertEquals(game.getPrice(), wlg.getCurrentPrice());
@@ -58,4 +60,7 @@ class WishListGameMapperInterfaceTest {
         assertEquals(ZonedDateTime.now().isAfter(wlg.getWishlistTime()), true);
 
     }
+
+
+
 }

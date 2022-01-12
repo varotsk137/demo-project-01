@@ -1,4 +1,4 @@
-package com.playground.demo.model;
+package com.playground.demo.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Developer {
+public class Publisher {
 
-    private Integer devId;
+    private Integer pubId;
+
     private String name;
 
 }
