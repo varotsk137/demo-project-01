@@ -1,0 +1,94 @@
+{
+  "error": false,
+  "msg": "Sydney with population",
+  "data": {
+    "city": "Sydney",
+    "country": "Australia",
+    "populationCounts": [
+      {
+        "year": "2012",
+        "value": "4293416",
+        "sex": "Both Sexes",
+        "reliabilty": "Final figure, complete"
+      },
+      {
+        "year": "2011",
+        "value": "4028524",
+        "sex": "Both Sexes",
+        "reliabilty": "Final figure, complete"
+      },
+      {
+        "year": "2011",
+        "value": "4391673",
+        "sex": "Both Sexes",
+        "reliabilty": "Final figure, complete"
+      },
+      {
+        "year": "2010",
+        "value": "4575532",
+        "sex": "Both Sexes",
+        "reliabilty": "Provisional figure"
+      },
+      {
+        "year": "2009",
+        "value": "4504469",
+        "sex": "Both Sexes",
+        "reliabilty": "Provisional figure"
+      },
+      {
+        "year": "2008",
+        "value": "4399722",
+        "sex": "Both Sexes",
+        "reliabilty": "Provisional figure"
+      },
+      {
+        "year": "2007",
+        "value": "4336374",
+        "sex": "Both Sexes",
+        "reliabilty": "Provisional figure"
+      },
+      {
+        "year": "2006",
+        "value": "3641418",
+        "sex": "Both Sexes",
+        "reliabilty": "Final figure, complete"
+      },
+      {
+        "year": "2006",
+        "value": "4119189",
+        "sex": "Both Sexes",
+        "reliabilty": "Final figure, complete"
+      },
+      {
+        "year": "2005",
+        "value": "4255954",
+        "sex": "Both Sexes",
+        "reliabilty": "Final figure, complete"
+      },
+      {
+        "year": "2004",
+        "value": "4225088",
+        "sex": "Both Sexes",
+        "reliabilty": "Final figure, complete"
+      },
+      {
+        "year": "2003",
+        "value": "4198543",
+        "sex": "Both Sexes",
+        "reliabilty": "Final figure, complete"
+      },
+      {
+        "year": "2001",
+        "value": "3948015",
+        "sex": "Both Sexes",
+        "reliabilty": "Final figure, complete"
+      },
+      {
+        "year": "2001",
+        "value": "3455110",
+        "sex": "Both Sexes",
+        "reliabilty": "Final figure, complete"
+      }
+    ]
+  }
+}

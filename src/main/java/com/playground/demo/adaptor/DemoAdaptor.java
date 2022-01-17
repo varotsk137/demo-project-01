@@ -8,6 +8,8 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Slf4j
 public abstract class DemoAdaptor {
@@ -23,6 +25,14 @@ public abstract class DemoAdaptor {
             throw httpEx;
 //            return null;
         }
+    }
+
+    //Concatenate URL
+    public String concat(String url, String path){
+        UriComponents uriComponents = UriComponentsBuilder.fromUriString(url)
+                .path(path)
+                .build();
+        return uriComponents.toUriString();
     }
 
 

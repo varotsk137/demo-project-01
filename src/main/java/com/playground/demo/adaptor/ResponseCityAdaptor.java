@@ -4,6 +4,7 @@ import com.playground.demo.model.HttpBinGetEntity;
 import com.playground.demo.model.RequestCity;
 import com.playground.demo.model.ResponseCity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -13,6 +14,12 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class ResponseCityAdaptor extends DemoAdaptor{
 
+    @Value("${adaptor.url.city}")
+    private String requestUrl;
+
+    @Value("${adaptor.path.city.postByCityName}")
+    private String requestPath;
+
     @Autowired
     private RestTemplate restTemplate;
 
@@ -21,7 +28,9 @@ public class ResponseCityAdaptor extends DemoAdaptor{
         return restTemplate;
     }
 
-    public ResponseCity postForCityDetail(String url, RequestCity requestCity){
+    public ResponseCity postForCityDetail(RequestCity requestCity){
+
+        String url = super.concat(requestUrl, requestPath);
 
         HttpEntity requestCityEntity = new HttpEntity(requestCity);
         ResponseCity response;

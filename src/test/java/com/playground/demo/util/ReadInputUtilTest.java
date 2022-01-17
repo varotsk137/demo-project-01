@@ -8,14 +8,21 @@ import com.playground.demo.model.GameDto;
 import com.playground.demo.model.entity.Tag;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(MockitoExtension.class)
 class ReadInputUtilTest {
 
-    ReadInputUtil readInputUtil = new ReadInputUtil();
+    @InjectMocks
+    ReadInputUtil readInputUtil;
+
+//    ReadInputUtil readInputUtil = new ReadInputUtil();
 
     private ObjectMapper objectMapper = JsonMapper.builder()
             .addModule(new JavaTimeModule())

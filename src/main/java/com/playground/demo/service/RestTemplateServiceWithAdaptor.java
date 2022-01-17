@@ -31,9 +31,7 @@ public class RestTemplateServiceWithAdaptor {
 
     public HttpBinGetEntity testRestTemplateGetMethod() {
 
-        String requestUrl = "https://httpbin.org/get";
-
-        HttpBinGetEntity response = httpBinAdaptor.getHttpBinEntityFromUrl(requestUrl);
+        HttpBinGetEntity response = httpBinAdaptor.getHttpBinEntityFromUrl();
 
         log.info("GET HttpBin Entity = {} ", response);
 
@@ -45,7 +43,7 @@ public class RestTemplateServiceWithAdaptor {
 
         String requestUrl = "https://countriesnow.space/api/v0.1/countries/population/cities";
 
-        ResponseCity responseCity = responseCityAdaptor.postForCityDetail(requestUrl, requestCity);
+        ResponseCity responseCity = responseCityAdaptor.postForCityDetail(requestCity);
 
         log.info("POST for City: result = {}", responseCity);
 
