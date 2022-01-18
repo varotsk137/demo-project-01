@@ -28,6 +28,7 @@ public class ResponseCityAdaptor extends DemoAdaptor{
         return restTemplate;
     }
 
+
     public ResponseCity postForCityDetail(RequestCity requestCity){
 
         String url = super.concat(requestUrl, requestPath);

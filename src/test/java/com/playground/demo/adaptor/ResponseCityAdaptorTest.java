@@ -51,6 +51,5 @@ class ResponseCityAdaptorTest extends ReadInputUtil {
 
         assertEquals(responseCity, actualCity);
 
-
     }
 }
