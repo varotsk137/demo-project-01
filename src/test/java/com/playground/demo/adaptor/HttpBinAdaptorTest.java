@@ -1,15 +1,13 @@
 package com.playground.demo.adaptor;
 
-import com.playground.demo.model.HttpBinGetEntity;
+import com.playground.demo.model.HttpBinGetResponse;
 import com.playground.demo.util.ReadInputUtil;
 import lombok.SneakyThrows;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -39,17 +37,17 @@ class HttpBinAdaptorTest extends ReadInputUtil {
     @Test
     void getHttpBinEntityFromUrl() {
 
-        HttpBinGetEntity httpBinGetEntity = super.loadClassFromJson(HttpBinGetEntity.class, "/json/httpBinTest.json");
+        HttpBinGetResponse httpBinGetResponse = super.loadClassFromJson(HttpBinGetResponse.class, "/json/httpBinTest.json");
 
-        doReturn(ResponseEntity.ok(httpBinGetEntity))
+        doReturn(ResponseEntity.ok(httpBinGetResponse))
                 .when(restTemplate)
-                .exchange(anyString(), any() , any() , eq(HttpBinGetEntity.class) );
+                .exchange(anyString(), any() , any() , eq(HttpBinGetResponse.class) );
 
-        HttpBinGetEntity actualHttpBin = httpBinAdaptor.getHttpBinEntityFromUrl();
+        HttpBinGetResponse actualHttpBin = httpBinAdaptor.getHttpBinEntityFromUrl();
 
         assertNotNull(actualHttpBin);
-        assertEquals(httpBinGetEntity, actualHttpBin);
-        verify(restTemplate, times(1)).exchange(anyString(), any() , any() , eq(HttpBinGetEntity.class));
+        assertEquals(httpBinGetResponse, actualHttpBin);
+        verify(restTemplate, times(1)).exchange(anyString(), any() , any() , eq(HttpBinGetResponse.class));
 
     }
 }

@@ -11,7 +11,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ResponseCity implements Serializable {
+public class CityResponse implements Serializable {
 
     private boolean error;
 

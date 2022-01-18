@@ -2,11 +2,10 @@ package com.playground.demo.service;
 
 import com.playground.demo.adaptor.HttpBinAdaptor;
 import com.playground.demo.adaptor.ResponseCityAdaptor;
-import com.playground.demo.model.HttpBinGetEntity;
+import com.playground.demo.model.CityResponse;
+import com.playground.demo.model.HttpBinGetResponse;
 import com.playground.demo.model.RequestCity;
-import com.playground.demo.model.ResponseCity;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -28,9 +27,9 @@ public class RestTemplateServiceWithAdaptor {
     private ResponseCityAdaptor responseCityAdaptor;
 
     @Cacheable(value = "httpBin", cacheManager = "customCacheManager")
-    public HttpBinGetEntity testRestTemplateGetMethod() {
+    public HttpBinGetResponse testRestTemplateGetMethod() {
 
-        HttpBinGetEntity response = httpBinAdaptor.getHttpBinEntityFromUrl();
+        HttpBinGetResponse response = httpBinAdaptor.getHttpBinEntityFromUrl();
 
         log.info("GET HttpBin Entity = {} ", response);
 
@@ -38,30 +37,30 @@ public class RestTemplateServiceWithAdaptor {
 
     }
 
-    @Cacheable(value = "responseCity", key = "#requestCity", unless = "#result.error", cacheManager = "customCacheManager")
-    public ResponseCity testRestTemplatePostMethodCity(RequestCity requestCity) {
+    @Cacheable(value = "responseCity", key = "#requestCity.getCity()", unless = "#result.error", cacheManager = "customCacheManager")
+    public CityResponse testRestTemplatePostMethodCity(RequestCity requestCity) {
 
-        ResponseCity responseCity = responseCityAdaptor.postForCityDetail(requestCity);
+        CityResponse cityResponse = responseCityAdaptor.postForCityDetail(requestCity);
 
-        log.info("POST for City: result = {}", responseCity);
+        log.info("POST for City: result = {}", cityResponse);
 
-        return responseCity;
+        return cityResponse;
 
     }
 
-    @CacheEvict(value = "responseCity", key="#requestCity", cacheManager = "customCacheManager")
+    @CacheEvict(value = "responseCity", key="#requestCity.getCity()", cacheManager = "customCacheManager")
     public void clearResponseCityCache(RequestCity requestCity){
         log.info("Clear Cache {}", requestCity);
     }
 
-    @CachePut(value = "responseCity", key = "#requestCityReal", cacheManager = "customCacheManager")
-    public ResponseCity troubleMaking(RequestCity requestCityReal, RequestCity requestCityFake) {
+    @CachePut(value = "responseCity", key = "#requestCityReal.getCity()", cacheManager = "customCacheManager")
+    public CityResponse troubleMaking(RequestCity requestCityReal, RequestCity requestCityFake) {
 
-        ResponseCity responseCity = responseCityAdaptor.postForCityDetail(requestCityFake);
+        CityResponse cityResponse = responseCityAdaptor.postForCityDetail(requestCityFake);
 
-        log.info("POST for City: result = {}", responseCity);
+        log.info("POST for City: result = {}", cityResponse);
 
         log.info("Return fake: {}, \ninstead of the real one: {}", requestCityFake, requestCityReal);
-        return responseCity;
+        return cityResponse;
     }
 }

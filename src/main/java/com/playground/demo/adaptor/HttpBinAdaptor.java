@@ -1,6 +1,6 @@
 package com.playground.demo.adaptor;
 
-import com.playground.demo.model.HttpBinGetEntity;
+import com.playground.demo.model.HttpBinGetResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -25,11 +25,11 @@ public class HttpBinAdaptor extends DemoAdaptor{
         return restTemplate;
     }
 
-    public HttpBinGetEntity getHttpBinEntityFromUrl(){
+    public HttpBinGetResponse getHttpBinEntityFromUrl(){
 
         String url = super.concat(requestUrl, requestPath);
 
-        return super.exchange(url, HttpMethod.GET, HttpEntity.EMPTY, HttpBinGetEntity.class).getBody();
+        return super.exchange(url, HttpMethod.GET, HttpEntity.EMPTY, HttpBinGetResponse.class).getBody();
     }
     
 }

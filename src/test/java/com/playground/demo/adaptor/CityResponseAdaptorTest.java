@@ -1,7 +1,7 @@
 package com.playground.demo.adaptor;
 
 import com.playground.demo.model.RequestCity;
-import com.playground.demo.model.ResponseCity;
+import com.playground.demo.model.CityResponse;
 import com.playground.demo.util.ReadInputUtil;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +19,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(MockitoExtension.class)
-class ResponseCityAdaptorTest extends ReadInputUtil {
+class CityResponseAdaptorTest extends ReadInputUtil {
 
     @InjectMocks
     ResponseCityAdaptor responseCityAdaptor;
@@ -37,19 +37,19 @@ class ResponseCityAdaptorTest extends ReadInputUtil {
     @Test
     void postForCityDetail() {
 
-        ResponseCity responseCity = super.loadClassFromJson(ResponseCity.class, "/json/citySydneyTest.json");
+        CityResponse cityResponse = super.loadClassFromJson(CityResponse.class, "/json/citySydneyTest.json");
 
         RequestCity requestCity = RequestCity.builder()
                 .city("Sydney")
                 .build();
 
-        doReturn(ResponseEntity.ok(responseCity))
+        doReturn(ResponseEntity.ok(cityResponse))
                 .when(restTemplate)
-                .exchange(anyString(), any() , any() , eq(ResponseCity.class) );
+                .exchange(anyString(), any() , any() , eq(CityResponse.class) );
 
-        ResponseCity actualCity = responseCityAdaptor.postForCityDetail(requestCity);
+        CityResponse actualCity = responseCityAdaptor.postForCityDetail(requestCity);
 
-        assertEquals(responseCity, actualCity);
+        assertEquals(cityResponse, actualCity);
 
     }
 }

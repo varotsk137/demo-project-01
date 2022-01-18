@@ -1,8 +1,8 @@
 package com.playground.demo.service;
 
-import com.playground.demo.model.HttpBinGetEntity;
+import com.playground.demo.model.CityResponse;
+import com.playground.demo.model.HttpBinGetResponse;
 import com.playground.demo.model.RequestCity;
-import com.playground.demo.model.ResponseCity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -10,7 +10,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
@@ -21,12 +20,12 @@ public class RestTemplateService {
     @Autowired
     private RestTemplate restTemplate ;
 
-    public HttpBinGetEntity testRestTemplateGetMethod() {
+    public HttpBinGetResponse testRestTemplateGetMethod() {
 
         String requestUrl = "https://httpbin.org/get";
 
-        ResponseEntity<HttpBinGetEntity> response =
-                restTemplate.exchange(requestUrl, HttpMethod.GET, RequestEntity.EMPTY , HttpBinGetEntity.class);
+        ResponseEntity<HttpBinGetResponse> response =
+                restTemplate.exchange(requestUrl, HttpMethod.GET, RequestEntity.EMPTY , HttpBinGetResponse.class);
 
         log.info("GET HttpBin Response = {} ", response);
 
@@ -34,11 +33,11 @@ public class RestTemplateService {
 
     }
 
-    public HttpBinGetEntity testRestTemplateGetMethod2() {
+    public HttpBinGetResponse testRestTemplateGetMethod2() {
 
         String requestUrl = "https://httpbin.org/get";
 
-        HttpBinGetEntity entity = restTemplate.getForObject(requestUrl, HttpBinGetEntity.class);
+        HttpBinGetResponse entity = restTemplate.getForObject(requestUrl, HttpBinGetResponse.class);
 
         log.info("GET HttpBin Entity = {} ", entity);
 
@@ -46,26 +45,26 @@ public class RestTemplateService {
 
     }
 
-    public ResponseCity testRestTemplatePostMethodCity(RequestCity requestCity) {
+    public CityResponse testRestTemplatePostMethodCity(RequestCity requestCity) {
 
         String requestUrl = "https://countriesnow.space/api/v0.1/countries/population/cities";
 
         HttpEntity<RequestCity> requestEntity = new HttpEntity<>(requestCity);
 
-        ResponseEntity<ResponseCity> responseEntityCity = null;
+        ResponseEntity<CityResponse> responseEntityCity = null;
 
-        ResponseCity responseCity;
+        CityResponse cityResponse;
 
         try {
 
-            responseEntityCity = restTemplate.exchange(requestUrl, HttpMethod.POST, requestEntity, ResponseCity.class);
+            responseEntityCity = restTemplate.exchange(requestUrl, HttpMethod.POST, requestEntity, CityResponse.class);
             log.info("POST City Response: {}", responseEntityCity);
 
-            responseCity = responseEntityCity.getBody();
+            cityResponse = responseEntityCity.getBody();
 
         } catch (HttpClientErrorException ex){
 
-            responseCity = ResponseCity.builder()
+            cityResponse = CityResponse.builder()
                     .msg(ex.getLocalizedMessage())
                     .error(true)
                     .build();
@@ -74,24 +73,24 @@ public class RestTemplateService {
 
         }
 
-        return responseCity;
+        return cityResponse;
 
     }
 
-    public ResponseCity testRestTemplatePostMethodCity2(RequestCity requestCity) {
+    public CityResponse testRestTemplatePostMethodCity2(RequestCity requestCity) {
 
         String requestUrl = "https://countriesnow.space/api/v0.1/countries/population/cities";
 
-        ResponseCity responseCity;
+        CityResponse cityResponse;
 
         try {
 
-            responseCity = restTemplate.postForObject(requestUrl, requestCity, ResponseCity.class);
-            log.info("POST City: {}", responseCity);
+            cityResponse = restTemplate.postForObject(requestUrl, requestCity, CityResponse.class);
+            log.info("POST City: {}", cityResponse);
 
         } catch (HttpClientErrorException ex){
 
-            responseCity = ResponseCity.builder()
+            cityResponse = CityResponse.builder()
                     .msg(ex.getLocalizedMessage())
                     .error(true)
                     .build();
@@ -100,7 +99,7 @@ public class RestTemplateService {
 
         }
 
-        return responseCity;
+        return cityResponse;
 
     }
 
