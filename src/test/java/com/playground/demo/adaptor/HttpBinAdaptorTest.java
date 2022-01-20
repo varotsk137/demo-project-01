@@ -1,6 +1,6 @@
 package com.playground.demo.adaptor;
 
-import com.playground.demo.model.HttpBinGetResponse;
+import com.playground.demo.model.response.HttpBinGetResponse;
 import com.playground.demo.util.ReadInputUtil;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;

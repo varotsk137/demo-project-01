@@ -1,8 +1,8 @@
 package com.playground.demo.service;
 
-import com.playground.demo.model.CityResponse;
-import com.playground.demo.model.HttpBinGetResponse;
-import com.playground.demo.model.RequestCity;
+import com.playground.demo.model.response.CityResponse;
+import com.playground.demo.model.response.HttpBinGetResponse;
+import com.playground.demo.model.request.CityRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -45,11 +45,11 @@ public class RestTemplateService {
 
     }
 
-    public CityResponse testRestTemplatePostMethodCity(RequestCity requestCity) {
+    public CityResponse testRestTemplatePostMethodCity(CityRequest cityRequest) {
 
         String requestUrl = "https://countriesnow.space/api/v0.1/countries/population/cities";
 
-        HttpEntity<RequestCity> requestEntity = new HttpEntity<>(requestCity);
+        HttpEntity<CityRequest> requestEntity = new HttpEntity<>(cityRequest);
 
         ResponseEntity<CityResponse> responseEntityCity = null;
 
@@ -77,7 +77,7 @@ public class RestTemplateService {
 
     }
 
-    public CityResponse testRestTemplatePostMethodCity2(RequestCity requestCity) {
+    public CityResponse testRestTemplatePostMethodCity2(CityRequest cityRequest) {
 
         String requestUrl = "https://countriesnow.space/api/v0.1/countries/population/cities";
 
@@ -85,7 +85,7 @@ public class RestTemplateService {
 
         try {
 
-            cityResponse = restTemplate.postForObject(requestUrl, requestCity, CityResponse.class);
+            cityResponse = restTemplate.postForObject(requestUrl, cityRequest, CityResponse.class);
             log.info("POST City: {}", cityResponse);
 
         } catch (HttpClientErrorException ex){

@@ -1,4 +1,4 @@
-package com.playground.demo.model;
+package com.playground.demo.model.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;

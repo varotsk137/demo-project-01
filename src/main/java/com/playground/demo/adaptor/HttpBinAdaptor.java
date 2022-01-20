@@ -1,6 +1,6 @@
 package com.playground.demo.adaptor;
 
-import com.playground.demo.model.HttpBinGetResponse;
+import com.playground.demo.model.response.HttpBinGetResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

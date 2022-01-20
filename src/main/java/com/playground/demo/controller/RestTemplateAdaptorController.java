@@ -1,9 +1,9 @@
 package com.playground.demo.controller;
 
-import com.playground.demo.model.CityResponse;
-import com.playground.demo.model.HttpBinGetResponse;
-import com.playground.demo.model.RequestCity;
-import com.playground.demo.model.test.TwoRequestCity;
+import com.playground.demo.model.response.CityResponse;
+import com.playground.demo.model.response.HttpBinGetResponse;
+import com.playground.demo.model.request.CityRequest;
+import com.playground.demo.model.test.TwoCityRequest;
 import com.playground.demo.service.RestTemplateServiceWithAdaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,18 +21,18 @@ public class RestTemplateAdaptorController {
     }
 
     @PostMapping("/adaptor/post")
-    public CityResponse testRestTemplatePostMethod(@RequestBody RequestCity requestCity){
-        return restTemplateServiceWithAdaptor.testRestTemplatePostMethodCity(requestCity);
+    public CityResponse testRestTemplatePostMethod(@RequestBody CityRequest cityRequest){
+        return restTemplateServiceWithAdaptor.testRestTemplatePostMethodCity(cityRequest);
     }
 
     @DeleteMapping("/cache/clear/city")
-    public void clearResponseCityCache(@RequestBody RequestCity requestCity){
-        restTemplateServiceWithAdaptor.clearResponseCityCache(requestCity);
+    public void clearResponseCityCache(@RequestBody CityRequest cityRequest){
+        restTemplateServiceWithAdaptor.clearResponseCityCache(cityRequest);
     }
 
     @PutMapping("/cache/put/city")
-    public CityResponse troubleMakingCityCache(@RequestBody TwoRequestCity requestCities){
-        return restTemplateServiceWithAdaptor.troubleMaking(requestCities.getRequestCityReal(), requestCities.getRequestCityFake());
+    public CityResponse troubleMakingCityCache(@RequestBody TwoCityRequest citiesRequest){
+        return restTemplateServiceWithAdaptor.troubleMaking(citiesRequest.getCityRequestReal(), citiesRequest.getCityRequestFake());
     }
 
 }

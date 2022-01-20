@@ -1,2 +1,43 @@
 server:
   port: 8080
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+  datasource:
+    url: jdbc:h2:mem:game;DATABASE_TO_UPPER=false
+    username: sa
+    password: ''
+    driverClassName: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none
+    generate-ddl: false
+  h2:
+    console.enabled: true
+  flyway:
+    enabled: true
+    user: sa
+    password: ''
+    schemas: game
+    url: jdbc:h2:mem:game;DATABASE_TO_UPPER=false
+    locations: classpath:db/migration
+
+redis:
+  host: localhost
+  port: 6379
+  map:
+    ttl: '{ "httpBin": "PT10M", "cityResponse": "PT6H" }'
+
+adaptor:
+  url:
+    httpbin: https://httpbin.org
+    city: https://countriesnow.space
+
+  path:
+    httpbin:
+      get: /get
+    city:
+      postByCityName: /api/v0.1/countries/population/cities

@@ -1,8 +1,8 @@
 package com.playground.demo.controller;
 
-import com.playground.demo.model.CityResponse;
-import com.playground.demo.model.HttpBinGetResponse;
-import com.playground.demo.model.RequestCity;
+import com.playground.demo.model.response.CityResponse;
+import com.playground.demo.model.response.HttpBinGetResponse;
+import com.playground.demo.model.request.CityRequest;
 import com.playground.demo.service.RestTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,13 +25,13 @@ public class RestTemplateController {
     }
 
     @PostMapping("/post/city")
-    public CityResponse testRestTemplatePostMethod(@RequestBody RequestCity requestCity){
-        return restTemplateService.testRestTemplatePostMethodCity(requestCity);
+    public CityResponse testRestTemplatePostMethod(@RequestBody CityRequest cityRequest){
+        return restTemplateService.testRestTemplatePostMethodCity(cityRequest);
     }
 
     @PostMapping("/post/city2")
-    public CityResponse testRestTemplatePostMethod2(@RequestBody RequestCity requestCity){
-        return restTemplateService.testRestTemplatePostMethodCity2( requestCity);
+    public CityResponse testRestTemplatePostMethod2(@RequestBody CityRequest cityRequest){
+        return restTemplateService.testRestTemplatePostMethodCity2(cityRequest);
     }
 
 }

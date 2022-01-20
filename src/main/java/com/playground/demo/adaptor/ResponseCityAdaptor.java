@@ -1,7 +1,7 @@
 package com.playground.demo.adaptor;
 
-import com.playground.demo.model.CityResponse;
-import com.playground.demo.model.RequestCity;
+import com.playground.demo.model.response.CityResponse;
+import com.playground.demo.model.request.CityRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -28,11 +28,11 @@ public class ResponseCityAdaptor extends DemoAdaptor{
     }
 
 
-    public CityResponse postForCityDetail(RequestCity requestCity){
+    public CityResponse postForCityDetail(CityRequest cityRequest){
 
         String url = super.concat(requestUrl, requestPath);
 
-        HttpEntity requestCityEntity = new HttpEntity(requestCity);
+        HttpEntity requestCityEntity = new HttpEntity(cityRequest);
         CityResponse response;
 
         try {

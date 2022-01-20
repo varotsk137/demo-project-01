@@ -1,4 +1,4 @@
-package com.playground.demo.model;
+package com.playground.demo.model.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ResponsePopulationCounts implements Serializable {
+public class PopulationCountsResponse implements Serializable {
 
     private String year;
 

@@ -1,4 +1,4 @@
-package com.playground.demo.model;
+package com.playground.demo.model.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,8 +11,12 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RequestCity implements Serializable {
+public class CityResponse implements Serializable {
 
-    private String city;
+    private boolean error;
+
+    private String msg;
+
+    private DataResponse data;
 
 }

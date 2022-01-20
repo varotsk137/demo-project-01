@@ -1,7 +1,7 @@
 package com.playground.demo.adaptor;
 
-import com.playground.demo.model.RequestCity;
-import com.playground.demo.model.CityResponse;
+import com.playground.demo.model.request.CityRequest;
+import com.playground.demo.model.response.CityResponse;
 import com.playground.demo.util.ReadInputUtil;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,7 +39,7 @@ class CityResponseAdaptorTest extends ReadInputUtil {
 
         CityResponse cityResponse = super.loadClassFromJson(CityResponse.class, "/json/citySydneyTest.json");
 
-        RequestCity requestCity = RequestCity.builder()
+        CityRequest cityRequest = CityRequest.builder()
                 .city("Sydney")
                 .build();
 
@@ -47,7 +47,7 @@ class CityResponseAdaptorTest extends ReadInputUtil {
                 .when(restTemplate)
                 .exchange(anyString(), any() , any() , eq(CityResponse.class) );
 
-        CityResponse actualCity = responseCityAdaptor.postForCityDetail(requestCity);
+        CityResponse actualCity = responseCityAdaptor.postForCityDetail(cityRequest);
 
         assertEquals(cityResponse, actualCity);
 

@@ -1,4 +1,4 @@
-package com.playground.demo.model;
+package com.playground.demo.model.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,12 +12,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ResponseData implements Serializable {
+public class DataResponse implements Serializable {
 
     private String city;
 
     private String country;
 
-    private List<ResponsePopulationCounts> populationCounts;
+    private List<PopulationCountsResponse> populationCounts;
 
 }
