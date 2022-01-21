@@ -1,70 +1,132 @@
 package com.playground.demo.service;
 
-import com.playground.demo.mapper.GameMapperInterface;
-import com.playground.demo.mapper.WishListGameMapperInterface;
-import com.playground.demo.model.GameDto;
-import com.playground.demo.model.WishListGame;
-import com.playground.demo.model.entity.Developer;
-import com.playground.demo.model.entity.Game;
-import com.playground.demo.model.entity.Publisher;
-import com.playground.demo.model.entity.Tag;
+import com.playground.demo.mapper.GameRequestMapperInterface;
+import com.playground.demo.model.entity.*;
+import com.playground.demo.model.entity.id.GameTagId;
+import com.playground.demo.model.request.DeveloperRequest;
+import com.playground.demo.model.request.GameDtoRequest;
+import com.playground.demo.model.request.PublisherRequest;
+import com.playground.demo.repository.DeveloperJpaRepository;
+import com.playground.demo.repository.GameJpaRepository;
+import com.playground.demo.repository.PublisherJpaRepository;
+import com.playground.demo.repository.TagJpaRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.time.ZonedDateTime;
-import java.time.temporal.Temporal;
-import java.time.temporal.TemporalUnit;
+import java.util.ArrayList;
 import java.util.List;
 
-@Service
 @Slf4j
+@Service
 public class GameService {
 
-    public WishListGame wishListGameMapping(Game game){
-        return WishListGameMapperInterface.INSTANCE.gameToWishlistGame( game );
+    @Autowired
+    private GameJpaRepository gameJpaRepository;
+
+    @Autowired
+    private PublisherJpaRepository publisherJpaRepository;
+
+    @Autowired
+    private DeveloperJpaRepository developerJpaRepository;
+
+    @Autowired
+    private TagJpaRepository tagJpaRepository;
+
+
+    public List<Game> getAllGames() {
+        return gameJpaRepository.findAll();
     }
 
-    public Game addGameTesting() {
+    public Game getGameFromGameId(Integer gameId) {
+        return gameJpaRepository.findById(gameId).orElse(null);
+    }
 
-        GameDto gameDto = GameDto.builder()
-                .description("test")
-                .gid(123)
-                .discount(5)
-                .price(BigDecimal.valueOf(1023.4))
-                .releaseDate(ZonedDateTime.now())
-                .title("ABCDE")
+    public Game addNewGame(GameDtoRequest game) {
+
+        Game dbGame = gameJpaRepository.findByTitle(game.getGameRequest().getTitle());
+        if(dbGame != null){
+            String msg = "Already have game with this title in database.";
+            log.error("Error occurred: {}", msg);
+            throw new RuntimeException(msg);
+        }
+
+        Developer dev = developerJpaRepository.findByName(game.getDeveloperRequest().getName());
+        if(dev == null){
+            dev = this.addNewDeveloper(game.getDeveloperRequest());
+        }
+
+        Publisher pub = publisherJpaRepository.findByName(game.getPublisherRequest().getName());
+        if(pub == null){
+            pub = this.addNewPublisher(game.getPublisherRequest());
+        }
+
+
+        Game newGame = GameRequestMapperInterface.INSTANCE.makeGameFrom(game.getGameRequest(), pub, dev);
+
+        newGame.setGid(0);
+
+        List<GameTag> gameTagList = new ArrayList<>();
+        if(!game.getTagList().isEmpty()){
+            gameTagList = this.addTags(game.getTagList(), newGame);
+        }
+
+        newGame.setTags(gameTagList);
+
+        return gameJpaRepository.save(newGame);
+    }
+
+    private List<GameTag> addTags(List<String> tagList, Game newGame) {
+
+        List<GameTag> gameTagList = new ArrayList<>();
+
+        for (String tag : tagList) {
+
+            Tag tempTag = tagJpaRepository.findByTagName(tag);
+
+            if (tempTag == null) {
+                tempTag = addNewTag(tag);
+            }
+
+            GameTagId gameTagId = GameTagId.builder().game_id(0)
+                    .tag_id(tempTag.getTagId())
+                    .build();
+
+            gameTagList.add( GameTag.builder()
+                            .id(gameTagId)
+                            .tag(tempTag)
+                            .game(newGame)
+                            .build());
+
+        }
+
+        return gameTagList;
+    }
+
+    private Tag addNewTag(String tag) {
+        Tag newTag = Tag.builder()
+                .tagId(0)
+                .tagName(tag)
                 .build();
 
-        Publisher publisher = Publisher.builder()
-                .pubId(1321)
-                .name("WOW")
+        return tagJpaRepository.save(newTag);
+    }
+
+    private Publisher addNewPublisher(PublisherRequest publisherRequest) {
+        Publisher newPub = Publisher.builder()
+                .name(publisherRequest.getName())
+                .pubId(0)
                 .build();
 
-        Developer developer = Developer.builder()
-                .devId(3310)
-                .name("ASDASDASD")
+        return publisherJpaRepository.save(newPub);
+    }
+
+    private Developer addNewDeveloper(DeveloperRequest developerRequest) {
+        Developer newDev = Developer.builder()
+                .name(developerRequest.getName())
+                .devId(0)
                 .build();
 
-        Tag tag1 = Tag.builder().tagId(1).tagName("Free to Play").build();
-        Tag tag2 = Tag.builder().tagId(2).tagName("Battle Royale").build();
-        Tag tag3 = Tag.builder().tagId(3).tagName("Shooter").build();
-        Tag tag4 = Tag.builder().tagId(4).tagName("Multiplayer").build();
-        List<Tag> tagList = List.of(tag1, tag2, tag3, tag4);
-
-        return GameMapperInterface.INSTANCE.gameDtoToGame(gameDto, publisher, developer, tagList);
+        return developerJpaRepository.save(newDev);
     }
-
-    public Developer gameToDeveloper( Game game ) {
-        return GameMapperInterface.INSTANCE.gameToDeveloper( game );
-    }
-
-    public Publisher gameToPublisher( Game game ) {
-        return GameMapperInterface.INSTANCE.gameToPublisher( game );
-    }
-
-    public GameDto gameToGameDto( Game game ) {
-        return GameMapperInterface.INSTANCE.gameToGameDto( game );
-    }
-
 }
