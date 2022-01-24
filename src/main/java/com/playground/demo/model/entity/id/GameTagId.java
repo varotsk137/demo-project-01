@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Builder
 public class GameTagId implements Serializable {
 
-    private Integer game_id;
-    private Integer tag_id;
+    private Integer gameId;
+    private Integer tagId;
 
 }

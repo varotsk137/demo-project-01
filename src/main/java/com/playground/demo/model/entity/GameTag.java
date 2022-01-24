@@ -2,10 +2,7 @@ package com.playground.demo.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.playground.demo.model.entity.id.GameTagId;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
@@ -14,6 +11,8 @@ import java.io.Serializable;
 
 @Entity
 @Data
+@ToString(exclude = "game")
+@EqualsAndHashCode(exclude = "game")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -24,13 +23,13 @@ public class GameTag implements Serializable {
     private GameTagId id;
 
     @ManyToOne
-    @MapsId("game_id")
+    @MapsId("gameId")
     @JoinColumn(referencedColumnName = "game_id", name = "game_id")
     @JsonBackReference
     private Game game;
 
     @ManyToOne
-    @MapsId("tag_id")
+    @MapsId("tagId")
     @JoinColumn(referencedColumnName = "tag_id", name = "tag_id")
     private Tag tag;
 

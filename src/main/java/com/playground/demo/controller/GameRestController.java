@@ -41,4 +41,9 @@ public class GameRestController {
         return gameService.addNewGame(game);
     }
 
+    @PutMapping("/game/{gameId}")
+    public Game editGame(@Validated @RequestBody GameDtoRequest game, @PathVariable(name = "gameId") Integer gameId) {
+        return gameService.editGameWithGameId(gameId, game);
+    }
+
 }
