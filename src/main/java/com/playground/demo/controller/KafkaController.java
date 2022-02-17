@@ -5,6 +5,8 @@ import com.playground.demo.service.ProducerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.InputStream;
+
 @RestController
 @RequestMapping(value = "/api/kafka")
 public class KafkaController {
@@ -20,6 +22,11 @@ public class KafkaController {
     @PostMapping(value = "/send")
     public void sendBody(@RequestBody GameDtoRequest gameDtoRequest){
         this.producerService.sendBody(gameDtoRequest);
+    }
+
+    @PostMapping(value = "/send/file")
+    public void sendFile(InputStream inputStream){
+        this.producerService.sendFile(inputStream);
     }
 
 }

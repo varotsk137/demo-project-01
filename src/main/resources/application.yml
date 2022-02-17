@@ -24,6 +24,19 @@ spring:
     schemas: game
     url: jdbc:h2:mem:game;DATABASE_TO_UPPER=false
     locations: classpath:db/migration
+  kafka:
+    bootstrap-servers: 'localhost:9092'
+    consumer:
+      group-id: demo-kafka
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+#      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+      properties:
+        spring:
+          json:
+            type:
+              mapping: gameDtoRequest:com.playground.demo.model.request.GameDtoRequest
 
 redis:
   host: localhost

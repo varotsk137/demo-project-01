@@ -8,7 +8,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 @Configuration
 public class GameDtoRequestListener {
 
-    @KafkaListener(topics = "random.discount", groupId = "haha")
+    @KafkaListener(topics = "random.discount")
     public void gameDtoRandomDiscount(String message){
         log.info("Listener on random.discount: {{}}", message);
     }

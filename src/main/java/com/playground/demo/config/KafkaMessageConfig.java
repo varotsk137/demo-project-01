@@ -15,11 +15,11 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 import java.util.HashMap;
 import java.util.Map;
 
-@Configuration
+//@Configuration
 public class KafkaMessageConfig {
 
     @Bean
-    @Qualifier("GameDtoRequestKafkaTemplate")
+//    @Qualifier("GameDtoRequestKafkaTemplate")
     public KafkaTemplate<String, GameDtoRequest> kafkaTemplateForGameDto() {
         return new KafkaTemplate<>(producerFactoryForGameDtoRequest());
     }
